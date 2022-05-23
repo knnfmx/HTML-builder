@@ -3,12 +3,13 @@ const path = require('path');
 const {stdin, stdout} = process;
 let dir = path.dirname(__filename);
 let file = 'text.txt';
+let output = fs.createWriteStream(`${dir}/${file}`);
 stdout.write('Give me a message:\n');
 stdin.on('data', (data) => {
   if (data.toString().trim() === 'exit') {
     process.exit();
   }
-  fs.createWriteStream(`${dir}/${file}`);.write(data);
+  output.write(data);
 });
 
 if(process.on('SIGINT', () => {
