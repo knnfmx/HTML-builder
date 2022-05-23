@@ -5,11 +5,15 @@ let dir = path.dirname(__filename);
 let file = 'text.txt';
 stdout.write('Give me a message:\n');
 stdin.on('data', (data) => {
-  if(process.on('SIGINT', () => {
+  if (data.toString().trim() === 'exit') {
     process.exit();
-  }));
-  fs.createWriteStream(`${dir}/${file}`).write(data);
+  }
+  fs.createWriteStream(`${dir}/${file}`);.write(data);
 });
+
+if(process.on('SIGINT', () => {
+  process.exit();
+}));
 process.on('exit', (code) => {
   if (code === 0) {
     stdout.write('See ya!');
